@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Enum_Status {
+  Ingresado
+  EnProceso
+  Despachado
+  Entregado
+}
+model Pedido {
+  id        String      @default(cuid()) @id
+  status    Enum_Status @default(Ingresado)
+  nombreCliente String
+  direccion String
+  descripcion String
+  date      DateTime    @default(now())
+  estimatedTimeInMinutes Int
+}
+
+
